@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block titulo %}Registrar usuario{% endblock %}
+
+{% block contenido %}
+<div class="container mt-5" style="max-width: 500px;">
+    <h3 class="text-center mb-4">Crear cuenta</h3>
+
+    <!-- Mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- Formulario de registro -->
+    <form method="POST" action="{{ url_for('register') }}">
+        {{ form.hidden_tag() }} <!-- CSRF token -->
+
+        <div class="mb-3">
+            {{ form.nombre.label(class="form-label") }}
+            {{ form.nombre(class="form-control", placeholder="Nombre") }}
+            {% for error in form.nombre.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.apellido.label(class="form-label") }}
+            {{ form.apellido(class="form-control", placeholder="Apellido") }}
+            {% for error in form.apellido.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.carrera.label(class="form-label") }}
+            {{ form.carrera(class="form-control", placeholder="Carrera") }}
+            {% for error in form.carrera.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.correo.label(class="form-label") }}
+            {{ form.correo(class="form-control", placeholder="Correo electrónico") }}
+            {% for error in form.correo.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control", placeholder="Contraseña") }}
+            {% for error in form.password.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.confirm_password.label(class="form-label") }}
+            {{ form.confirm_password(class="form-control", placeholder="Repite tu contraseña") }}
+            {% for error in form.confirm_password.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.estatus.label(class="form-label") }}
+            {{ form.estatus(class="form-select") }}
+            {% for error in form.estatus.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        {{ form.submit(class="btn btn-success w-100 mt-3") }}
+        <a href="{{ url_for('index') }}" class="btn btn-secondary w-100 mt-2">Volver al login</a>
+    </form>
+</div>
+{% endblock %}
+

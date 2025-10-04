@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block titulo %}Lista de Usuarios{% endblock %}
+{% block contenido %}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Usuarios registrados</h2>
+    <a href="{{ url_for('nuevo_usuario') }}" class="btn btn-success mb-3">Agregar nuevo usuario</a>
+    <table class="table table-bordered table-striped text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Carrera</th>
+                <th>Correo</th>
+                <th>Estatus</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario['id'] }}</td>
+                <td>{{ usuario['nombre'] }}</td>
+                <td>{{ usuario['apellido'] }}</td>
+                <td>{{ usuario['carrera'] }}</td>
+                <td>{{ usuario['correo'] }}</td>
+                <td>{{ usuario['estatus'] }}</td>
+                <td>
+                    <a href="{{ url_for('editar_usuario', id=usuario['id']) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{{ url_for('eliminar_usuario', id=usuario['id']) }}" class="btn btn-danger btn-sm"
+                       onclick="return confirm('¿Seguro que deseas eliminar este usuario?');">Eliminar</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7">No hay usuarios registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
